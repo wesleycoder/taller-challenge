@@ -1,0 +1,27 @@
+{
+  "extends": "@tsconfig/recommended",
+  "compilerOptions": {
+    "target": "es2016",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "moduleDetection": "force",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true,
+    // Best practices
+    "noFallthroughCasesInSwitch": true,
+    // Some stricter flags (disabled by default)
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "noPropertyAccessFromIndexSignature": false,
+    // Build options
+    "baseUrl": "./",
+    "outDir": "./dist",
+    "types": ["vite/client"],
+    // Aliases
+    "paths": {
+      "@/*": ["src/*"]
+    }
+  }
+}

@@ -1,0 +1,28 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=file:///data/sqlite.db
+    command: pnpm run start
+
+  dev:
+    profiles: [dev]
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - DATABASE_URL=file:///data/sqlite.db
+    volumes:
+      - /tmp/taller-challenge-tasks.db:/data/sqlite.db
+    command: pnpm run start
+
+volumes:
+  data:
