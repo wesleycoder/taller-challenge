@@ -23,7 +23,8 @@
     "drizzle-zod": "^0.5.1",
     "express": "^4.21.1",
     "typescript": "^5.6.3",
-    "zod": "^3.23.8"
+    "zod": "^3.23.8",
+    "zod-express-middleware": "^1.4.0"
   },
   "devDependencies": {
     "@flydotio/dockerfile": "^0.5.9",

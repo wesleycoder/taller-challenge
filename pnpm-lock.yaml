@@ -35,6 +35,9 @@ importers:
       zod:
         specifier: ^3.23.8
         version: 3.23.8
+      zod-express-middleware:
+        specifier: ^1.4.0
+        version: 1.4.0(@types/express@5.0.0)(express@4.21.1)(zod@3.23.8)
     devDependencies:
       '@flydotio/dockerfile':
         specifier: ^0.5.9
@@ -1779,6 +1782,13 @@ packages:
     resolution: {integrity: sha512-7dSzzRQ++CKnNI/krKnYRV7JKKPUXMEh61soaHKg9mrWEhzFWhFnxPxGl+69cD1Ou63C13NUPCnmIcrvqCuM6w==}
     engines: {node: '>=12'}
 
+  zod-express-middleware@1.4.0:
+    resolution: {integrity: sha512-C1pBbwbuotitG1L3I1cr9QD/nuepHAdZEUbVn7y1o2cJq0oaUuS7gTVGby1+DGHL4t2P4eEZKCX0QQDv6hEs3A==}
+    peerDependencies:
+      '@types/express': ^4.17.12
+      express: ^4.17.1
+      zod: ^3.2.0
+
   zod@3.23.8:
     resolution: {integrity: sha512-XBx9AXhXktjUqnepgTiE5flcKIYWi/rme0Eaj+5Y0lftuGBq+jyRu/md4WnuxqgP1ubdpNCsYEYPxrzVHD8d6g==}
 
@@ -3268,5 +3278,11 @@ snapshots:
       string-width: 4.2.3
       y18n: 5.0.8
       yargs-parser: 21.1.1
+
+  zod-express-middleware@1.4.0(@types/express@5.0.0)(express@4.21.1)(zod@3.23.8):
+    dependencies:
+      '@types/express': 5.0.0
+      express: 4.21.1
+      zod: 3.23.8
 
   zod@3.23.8: {}

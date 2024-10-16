@@ -1,6 +1,7 @@
 import { sql } from 'drizzle-orm'
 import { integer, sqliteTable, text } from 'drizzle-orm/sqlite-core'
 import { createInsertSchema, createSelectSchema } from 'drizzle-zod'
+import type { z } from 'zod'
 
 export const tasks = sqliteTable('tasks', {
   id: integer('id').primaryKey({ autoIncrement: true }),
@@ -14,14 +15,14 @@ export const tasks = sqliteTable('tasks', {
     .default(sql`(strftime('%s', 'now'))`),
 })
 
-export type Task = typeof tasks.$inferSelect
-export type InsertTask = typeof tasks.$inferInsert
-
-// Create Zod schemas
-export const insertTaskSchema = createInsertSchema(tasks)
 export const selectTaskSchema = createSelectSchema(tasks)
+export const insertTaskSchema = createInsertSchema(tasks).omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+})
+export const updateTaskSchema = insertTaskSchema.partial()
 
-// Create a partial schema for updates
-export const updateTaskSchema = insertTaskSchema
-  .partial()
-  .omit({ id: true, createdAt: true, updatedAt: true })
+export type Task = z.infer<typeof selectTaskSchema>
+export type InsertTask = z.infer<typeof insertTaskSchema>
+export type UpdateTask = z.infer<typeof updateTaskSchema>

@@ -29,6 +29,11 @@
         "noNonNullAssertion": {
           "level": "warn"
         }
+      },
+      "suspicious": {
+        "noFocusedTests": {
+          "level": "warn"
+        }
       }
     }
   },

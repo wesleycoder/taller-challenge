@@ -1,33 +1,11 @@
-import * as schema from '@/db/schema.js'
-import Database from 'better-sqlite3'
-import { drizzle } from 'drizzle-orm/better-sqlite3'
 import express, { type Express } from 'express'
 import request from 'supertest'
-import { beforeAll, describe, expect, it, vi } from 'vitest'
+import { beforeAll, describe, expect, it } from 'vitest'
 import { tasksRouter } from './route.js'
 
 let app: Express
 
 beforeAll(() => {
-  vi.mock('@/db/index.js', () => {
-    const sqlite = new Database(':memory:')
-    const db = drizzle(sqlite, { schema })
-    db.run(`CREATE TABLE tasks (
-      id INTEGER PRIMARY KEY AUTOINCREMENT,
-      title TEXT NOT NULL,
-      description TEXT,
-      completed BOOLEAN NOT NULL DEFAULT false,
-      created_at INTEGER NOT NULL DEFAULT (strftime('%s', 'now')),
-      updated_at INTEGER NOT NULL DEFAULT (strftime('%s', 'now'))
-    )`)
-    db.run(`INSERT INTO tasks (title, description) VALUES ('Task 1', 'Description 1');`)
-    db.run(`INSERT INTO tasks (title, description) VALUES ('Task 2', 'Description 2');`)
-
-    return {
-      db: drizzle(sqlite, { schema }),
-    }
-  })
-
   app = express()
   app.use(express.json())
   app.use(tasksRouter)

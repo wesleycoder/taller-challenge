@@ -1,41 +1,43 @@
 import { db } from '@/db/index.js'
 import { insertTaskSchema, tasks, updateTaskSchema } from '@/db/schema.js'
-import { validateRequest } from '@/lib/validateMiddleware.js'
 import { eq } from 'drizzle-orm'
 import { Router } from 'express'
 import { z } from 'zod'
+import { validateRequest } from 'zod-express-middleware'
 
 export const tasksRouter = Router()
 
-tasksRouter
-  .route('/tasks')
-  .get(async (_req, res) => {
-    const allTasks = await db.select().from(tasks)
-    res.json(allTasks)
-  })
-  .post(validateRequest(insertTaskSchema), async (req, res) => {
-    const { title } = insertTaskSchema.parse(req.body)
+tasksRouter.get('/tasks', async (_req, res) => {
+  const allTasks = await db.select().from(tasks)
+  res.json(allTasks)
+})
 
-    const [newTask] = await db.insert(tasks).values({ title }).returning()
+tasksRouter.post('/tasks', validateRequest({ body: insertTaskSchema }), async (req, res) => {
+  const newTask = insertTaskSchema.parse(req.body)
 
-    res.status(201).json(newTask)
-  })
+  const [task] = await db.insert(tasks).values(newTask).returning()
 
-tasksRouter
-  .route('/tasks/:id')
-  .get(async (req, res) => {
-    const id = z.coerce.number().parse(req.params.id)
+  res.status(201).json(task)
+  return
+})
 
-    const [task] = await db.select().from(tasks).where(eq(tasks.id, id))
+tasksRouter.get<{ id: string }>('/tasks/:id', async (req, res) => {
+  const id = z.coerce.number().parse(req.params.id)
 
-    if (!task) {
-      res.status(404).json({ error: 'Task not found' })
-      return
-    }
+  const [task] = await db.select().from(tasks).where(eq(tasks.id, id))
 
-    res.json(task)
-  })
-  .put(validateRequest(updateTaskSchema), async (req, res) => {
+  if (!task) {
+    res.status(404).json({ error: 'Task not found' })
+    return
+  }
+
+  res.json(task)
+})
+
+tasksRouter.put<{ id: string }>(
+  '/tasks/:id',
+  validateRequest({ body: updateTaskSchema }),
+  async (req, res) => {
     const id = z.coerce.number().parse(req.params.id)
     const newTask = updateTaskSchema.parse(req.body)
 
@@ -47,16 +49,18 @@ tasksRouter
     }
 
     res.json(updatedTask)
-  })
-  .delete(async (req, res) => {
-    const id = z.coerce.number().parse(req.params.id)
+  },
+)
 
-    const deletedTask = await db.delete(tasks).where(eq(tasks.id, id)).returning()
+tasksRouter.delete<{ id: string }>('/tasks/:id', async (req, res) => {
+  const id = z.coerce.number().parse(req.params.id)
 
-    if (deletedTask.length === 0) {
-      res.status(404).json({ error: 'Task not found' })
-      return
-    }
+  const deletedTask = await db.delete(tasks).where(eq(tasks.id, id)).returning()
 
-    res.status(204).send()
-  })
+  if (deletedTask.length === 0) {
+    res.status(404).json({ error: 'Task not found' })
+    return
+  }
+
+  res.status(204).send()
+})
