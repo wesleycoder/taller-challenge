@@ -79,7 +79,7 @@ mocked via [Drizzle][drizzle] with and in memory database.
 pnpm run test
 ```
 
-[postman-collection]: https://www.postman.com/research-candidate-9614848/challenges/collection/og06dlh/taller-task-challenge?action=share&creator=39071082
+[postman-collection]: https://www.postman.com/wesleycoder/challenges/documentation/og06dlh/taller-task-challenge
 [run-in-postman]: https://god.gw.postman.com/run-collection/39071082-456f833a-cea2-4a82-a1e3-04ad6bd72495?action=collection%2Ffork&source=rip_markdown&collection-url=entityId%3D39071082-456f833a-cea2-4a82-a1e3-04ad6bd72495%26entityType%3Dcollection%26workspaceId%3Dbb09de1c-434f-4950-b11b-8a77ec9cbb87
 [drizzle]: https://drizzle.dev/
 [zod]: https://zod.dev/
