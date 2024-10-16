@@ -2,7 +2,7 @@
 
 ## Challenge description
 
-```
+```md
 Code Challenge
 Task:
 Create a simple RESTful API using Node.js and Express that allows users to manage a list of tasks. Each task should have the following properties:
@@ -32,6 +32,10 @@ Node.js
 Express.js
 Postman for testing the API (optional)
 ```
+
+## Deployed API
+
+The API is deployed on [fly.io][fly-io] and available at [taller-challenge.fly.dev][taller-challenge].
 
 ## Postman collection
 
@@ -79,6 +83,7 @@ mocked via [Drizzle][drizzle] with and in memory database.
 pnpm run test
 ```
 
+[taller-challenge]: https://taller-challenge.fly.dev
 [postman-collection]: https://www.postman.com/wesleycoder/challenges/documentation/og06dlh/taller-task-challenge
 [run-in-postman]: https://god.gw.postman.com/run-collection/39071082-456f833a-cea2-4a82-a1e3-04ad6bd72495?action=collection%2Ffork&source=rip_markdown&collection-url=entityId%3D39071082-456f833a-cea2-4a82-a1e3-04ad6bd72495%26entityType%3Dcollection%26workspaceId%3Dbb09de1c-434f-4950-b11b-8a77ec9cbb87
 [drizzle]: https://drizzle.dev/
