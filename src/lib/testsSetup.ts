@@ -2,11 +2,10 @@ import * as schema from '@/db/schema.js'
 import { createClient } from '@libsql/client'
 import { sql } from 'drizzle-orm'
 import { drizzle } from 'drizzle-orm/libsql'
-import { unlinkSync } from 'node:fs'
-import { afterAll, vi } from 'vitest'
+import { vi } from 'vitest'
 
 vi.mock('@/db/index.js', async () => {
-  const client = createClient({ url: 'file:./test.db' })
+  const client = createClient({ url: ':memory:' })
   const db = drizzle(client, { schema })
 
   await db.run(sql`CREATE TABLE tasks (
@@ -21,8 +20,4 @@ vi.mock('@/db/index.js', async () => {
   await db.run(sql`INSERT INTO tasks (title, description) VALUES ('Task 2', 'Description 2');`)
 
   return { db }
-})
-
-afterAll(() => {
-  unlinkSync('./test.db')
 })
