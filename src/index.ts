@@ -15,7 +15,7 @@ app.get('/', (_, res) => {
     </head>
     <body>
       <h1>Taller Challenge</h1>
-      See more about this API on the <a href="https://github.com/wesleycoder/taller-challenge/README.md">GitHub</a> repository.
+      See more about this API on the <a href="https://github.com/wesleycoder/taller-challenge#taller-challenge">GitHub</a> repository.
     </body>
   `)
 })
